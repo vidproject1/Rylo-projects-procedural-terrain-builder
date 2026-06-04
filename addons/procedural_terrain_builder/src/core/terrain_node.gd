@@ -61,6 +61,8 @@ var _last_dirt_slope_threshold: float = -1.0
 var _last_dirt_slope_blend: float = -1.0
 var _last_sand_height_limit: float = -1.0
 var _last_sand_blend_margin: float = -1.0
+var _last_gully_dirt_influence: float = -1.0
+var _last_ridge_rock_influence: float = -1.0
 
 # Map tracker to track active chunk nodes
 # Key: Vector2i(chunk_x, chunk_z), Value: TerrainChunk3D
@@ -437,6 +439,8 @@ func _check_material_parameter_changes() -> void:
 	var dirt_blend = mat.get_shader_parameter("dirt_slope_blend")
 	var sand_limit = mat.get_shader_parameter("sand_height_limit")
 	var sand_margin = mat.get_shader_parameter("sand_blend_margin")
+	var gully_dirt = mat.get_shader_parameter("gully_dirt_influence")
+	var ridge_rock = mat.get_shader_parameter("ridge_rock_influence")
 	
 	var changed = false
 	if rock_slope != null and rock_slope != _last_rock_slope_threshold:
@@ -462,6 +466,12 @@ func _check_material_parameter_changes() -> void:
 		changed = true
 	if sand_margin != null and sand_margin != _last_sand_blend_margin:
 		_last_sand_blend_margin = sand_margin
+		changed = true
+	if gully_dirt != null and gully_dirt != _last_gully_dirt_influence:
+		_last_gully_dirt_influence = gully_dirt
+		changed = true
+	if ridge_rock != null and ridge_rock != _last_ridge_rock_influence:
+		_last_ridge_rock_influence = ridge_rock
 		changed = true
 		
 	if changed:

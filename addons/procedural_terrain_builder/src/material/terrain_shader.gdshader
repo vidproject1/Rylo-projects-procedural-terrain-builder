@@ -43,6 +43,10 @@ uniform float rock_height_limit = 45.0;
 uniform float rock_height_blend = 10.0;
 uniform bool tint_rock_texture = false;
 
+group_uniforms Geological_Curvature;
+uniform float gully_dirt_influence : hint_range(0.0, 20.0) = 5.0;
+uniform float ridge_rock_influence : hint_range(0.0, 20.0) = 4.0;
+
 group_uniforms Layer_Painting;
 uniform bool use_splatmap = false;
 uniform sampler2D splat_map : source_color, filter_linear, hint_default_black;
@@ -207,6 +211,9 @@ vec3 blend_normals_rnm(vec3 base, vec3 detail) {
 void fragment() {
 	vec3 normal = normalize(v_world_normal);
 	vec3 pos = v_world_pos;
+	
+	// Reference uniforms to prevent compiler optimization
+	float _curr_dummy = gully_dirt_influence + ridge_rock_influence;
 	
 	float grass_w = 0.0;
 	float dirt_w  = 0.0;

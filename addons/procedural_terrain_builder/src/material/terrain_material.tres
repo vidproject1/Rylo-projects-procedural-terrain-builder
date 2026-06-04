@@ -65,3 +65,5 @@ shader_parameter/grass_dry_color = Color(0.45, 0.48, 0.22, 1)
 shader_parameter/triplanar_sharpness = 1.0
 shader_parameter/enable_strata = true
 shader_parameter/strata_frequency = 0.8
+shader_parameter/gully_dirt_influence = 5.0
+shader_parameter/ridge_rock_influence = 4.0

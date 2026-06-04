@@ -167,6 +167,8 @@ func auto_generate_splatmap(mat: ShaderMaterial = null) -> void:
 	var dirt_slope_blend = 0.10
 	var sand_height_limit = 2.0
 	var sand_blend_margin = 1.0
+	var gully_dirt_influence = 5.0
+	var ridge_rock_influence = 4.0
 	
 	if mat:
 		rock_slope_threshold = mat.get_shader_parameter("rock_slope_threshold") if mat.get_shader_parameter("rock_slope_threshold") != null else rock_slope_threshold
@@ -177,6 +179,8 @@ func auto_generate_splatmap(mat: ShaderMaterial = null) -> void:
 		dirt_slope_blend = mat.get_shader_parameter("dirt_slope_blend") if mat.get_shader_parameter("dirt_slope_blend") != null else dirt_slope_blend
 		sand_height_limit = mat.get_shader_parameter("sand_height_limit") if mat.get_shader_parameter("sand_height_limit") != null else sand_height_limit
 		sand_blend_margin = mat.get_shader_parameter("sand_blend_margin") if mat.get_shader_parameter("sand_blend_margin") != null else sand_blend_margin
+		gully_dirt_influence = mat.get_shader_parameter("gully_dirt_influence") if mat.get_shader_parameter("gully_dirt_influence") != null else gully_dirt_influence
+		ridge_rock_influence = mat.get_shader_parameter("ridge_rock_influence") if mat.get_shader_parameter("ridge_rock_influence") != null else ridge_rock_influence
 
 	for z in range(depth):
 		for x in range(width):
@@ -190,13 +194,29 @@ func auto_generate_splatmap(mat: ShaderMaterial = null) -> void:
 			var normal = Vector3(hl - hr, 2.0, hu - hd).normalized()
 			var slope = 1.0 - normal.y
 			
+			# Calculate Laplacian curvature: positive = concave (valley), negative = convex (ridge)
+			var raw_y = get_height(x, z)
+			var raw_l = get_height(x - 1, z)
+			var raw_r = get_height(x + 1, z)
+			var raw_u = get_height(x, z - 1)
+			var raw_d = get_height(x, z + 1)
+			var curvature = (raw_l + raw_r + raw_u + raw_d) - 4.0 * raw_y
+			
 			# Custom thresholds matching shader parameters
 			var rock_slope_w = clampf((slope - rock_slope_threshold) / rock_slope_blend, 0.0, 1.0)
 			var rock_height_w = clampf((pos_y - rock_height_limit) / rock_height_blend, 0.0, 1.0)
 			var rock_w = maxf(rock_slope_w, rock_height_w)
 			
+			# Expose rock on convex ridges (peaks)
+			if curvature < 0.0:
+				rock_w = clampf(rock_w - curvature * ridge_rock_influence, 0.0, 1.0)
+			
 			var dirt_slope_w = clampf((slope - dirt_slope_threshold) / dirt_slope_blend, 0.0, 1.0)
 			var dirt_w = dirt_slope_w * (1.0 - rock_w)
+			
+			# Accumulate dirt/sediment in concave gullies (valleys)
+			if curvature > 0.0:
+				dirt_w = clampf(dirt_w + curvature * gully_dirt_influence, 0.0, 1.0) * (1.0 - rock_w)
 			
 			var sand_w = clampf((sand_height_limit - pos_y) / sand_blend_margin, 0.0, 1.0) * (1.0 - rock_w) * (1.0 - dirt_w)
 			var grass_w = clampf(1.0 - rock_w - dirt_w - sand_w, 0.0, 1.0)
