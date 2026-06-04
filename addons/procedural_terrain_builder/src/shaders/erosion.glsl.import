@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://c7cssj0t44ylb"
+path="res://.godot/imported/erosion.glsl-bc6364925c7b05a937b0bb346ad189f8.res"
+
+[deps]
+
+source_file="res://addons/procedural_terrain_builder/src/shaders/erosion.glsl"
+dest_files=["res://.godot/imported/erosion.glsl-bc6364925c7b05a937b0bb346ad189f8.res"]
+
+[params]
+

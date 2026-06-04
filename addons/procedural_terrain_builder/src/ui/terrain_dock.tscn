@@ -1,0 +1,377 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp6t7gqvhcy8r"]
+
+[ext_resource type="Script" path="res://addons/procedural_terrain_builder/src/ui/terrain_dock.gd" id="1_dock_script"]
+
+[node name="TerrainDock" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"EditorDock"
+script = ExtResource("1_dock_script")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="StatusPanel" type="PanelContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="ScrollContainer/VBox/StatusPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="StatusLabel" type="Label" parent="ScrollContainer/VBox/StatusPanel/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Status: Select a ProceduralTerrain3D node"
+autowrap_mode = 3
+
+[node name="ConfigHeader" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "1. Terrain Configuration"
+
+[node name="ConfigGrid" type="GridContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/horizontal_separation = 8
+theme_override_constants/vertical_separation = 6
+columns = 2
+
+[node name="SizeLabel" type="Label" parent="ScrollContainer/VBox/ConfigGrid"]
+layout_mode = 2
+text = "Terrain Size:"
+
+[node name="SizeSelect" type="OptionButton" parent="ScrollContainer/VBox/ConfigGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "512"
+popup/item_0/id = 0
+popup/item_1/text = "1024"
+popup/item_1/id = 1
+popup/item_2/text = "2048"
+popup/item_2/id = 2
+
+[node name="ChunkLabel" type="Label" parent="ScrollContainer/VBox/ConfigGrid"]
+layout_mode = 2
+text = "Chunk Size:"
+
+[node name="ChunkSizeSelect" type="OptionButton" parent="ScrollContainer/VBox/ConfigGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 1
+item_count = 3
+popup/item_0/text = "32"
+popup/item_0/id = 0
+popup/item_1/text = "64"
+popup/item_1/id = 1
+popup/item_2/text = "128"
+popup/item_2/id = 2
+
+[node name="HeightLabel" type="Label" parent="ScrollContainer/VBox/ConfigGrid"]
+layout_mode = 2
+text = "Height Scale:"
+
+[node name="HeightScaleSpin" type="SpinBox" parent="ScrollContainer/VBox/ConfigGrid"]
+layout_mode = 2
+min_value = 1.0
+max_value = 500.0
+step = 0.5
+value = 64.0
+allow_greater = true
+
+[node name="NoiseHeader" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "2. Noise parameters (FastNoiseLite)"
+
+[node name="NoiseGrid" type="GridContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/horizontal_separation = 8
+theme_override_constants/vertical_separation = 6
+columns = 2
+
+[node name="PresetLabel" type="Label" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+text = "Terrain Preset:"
+
+[node name="PresetSelect" type="OptionButton" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 5
+popup/item_0/text = "Custom (Manual)"
+popup/item_0/id = 0
+popup/item_1/text = "Eroded Alpine Peaks"
+popup/item_1/id = 1
+popup/item_2/text = "Smooth Rolling Hills"
+popup/item_2/id = 2
+popup/item_3/text = "Terraced Canyons"
+popup/item_3/id = 3
+popup/item_4/text = "Rugged Highlands"
+popup/item_4/id = 4
+
+[node name="FractalLabel" type="Label" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+text = "Fractal Type:"
+
+[node name="FractalSelect" type="OptionButton" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "FBM"
+popup/item_0/id = 0
+popup/item_1/text = "Ridged Multi-Fractal"
+popup/item_1/id = 1
+popup/item_2/text = "Ping-Pong"
+popup/item_2/id = 2
+
+[node name="SeedLabel" type="Label" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+text = "Seed:"
+
+[node name="SeedSpin" type="SpinBox" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+min_value = -2.14748e+09
+max_value = 2.14748e+09
+allow_greater = true
+allow_lesser = true
+
+[node name="FreqLabel" type="Label" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+text = "Frequency:"
+
+[node name="FreqSpin" type="SpinBox" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+min_value = 0.0001
+max_value = 1.0
+step = 0.0001
+value = 0.005
+allow_greater = true
+
+[node name="OctavesLabel" type="Label" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+text = "Octaves:"
+
+[node name="OctavesSpin" type="SpinBox" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+min_value = 1.0
+max_value = 12.0
+value = 4.0
+
+[node name="PersistLabel" type="Label" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+text = "Persistence:"
+
+[node name="PersistSpin" type="SpinBox" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="LacLabel" type="Label" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+text = "Lacunarity:"
+
+[node name="LacunaritySpin" type="SpinBox" parent="ScrollContainer/VBox/NoiseGrid"]
+layout_mode = 2
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 2.0
+allow_greater = true
+
+[node name="BtnGenerate" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Generate Base Terrain"
+
+[node name="SculptHeader" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "3. Manual Sculpt Brush (Left Click)"
+
+[node name="SculptGrid" type="GridContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/horizontal_separation = 8
+theme_override_constants/vertical_separation = 6
+columns = 2
+
+[node name="BrushLabel" type="Label" parent="ScrollContainer/VBox/SculptGrid"]
+layout_mode = 2
+text = "Brush Mode:"
+
+[node name="BrushModeSelect" type="OptionButton" parent="ScrollContainer/VBox/SculptGrid"]
+layout_mode = 2
+selected = 0
+item_count = 7
+popup/item_0/text = "Raise"
+popup/item_0/id = 0
+popup/item_1/text = "Lower"
+popup/item_1/id = 1
+popup/item_2/text = "Smooth"
+popup/item_2/id = 2
+popup/item_3/text = "Flatten"
+popup/item_3/id = 3
+popup/item_4/text = "Noise"
+popup/item_4/id = 4
+popup/item_5/text = "Paint Density"
+popup/item_5/id = 5
+popup/item_6/text = "Paint Texture"
+popup/item_6/id = 6
+
+[node name="RadLabel" type="Label" parent="ScrollContainer/VBox/SculptGrid"]
+layout_mode = 2
+text = "Radius:"
+
+[node name="RadHBox" type="HBoxContainer" parent="ScrollContainer/VBox/SculptGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RadiusSlider" type="HSlider" parent="ScrollContainer/VBox/SculptGrid/RadHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.5
+max_value = 100.0
+step = 0.5
+value = 10.0
+allow_greater = true
+
+[node name="RadiusValue" type="Label" parent="ScrollContainer/VBox/SculptGrid/RadHBox"]
+layout_mode = 2
+text = "10.0"
+
+[node name="StrLabel" type="Label" parent="ScrollContainer/VBox/SculptGrid"]
+layout_mode = 2
+text = "Strength:"
+
+[node name="StrHBox" type="HBoxContainer" parent="ScrollContainer/VBox/SculptGrid"]
+layout_mode = 2
+
+[node name="StrengthSlider" type="HSlider" parent="ScrollContainer/VBox/SculptGrid/StrHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="StrengthValue" type="Label" parent="ScrollContainer/VBox/SculptGrid/StrHBox"]
+layout_mode = 2
+text = "0.50"
+
+[node name="TargLabel" type="Label" parent="ScrollContainer/VBox/SculptGrid"]
+layout_mode = 2
+text = "Flatten Height:"
+
+[node name="TargetHeightSpin" type="SpinBox" parent="ScrollContainer/VBox/SculptGrid"]
+layout_mode = 2
+min_value = -500.0
+max_value = 500.0
+step = 0.1
+value = 0.0
+allow_greater = true
+allow_lesser = true
+
+[node name="DensityHeader" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "4. Painting Layers (Density / Texture)"
+
+[node name="DensityGrid" type="GridContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_constants/horizontal_separation = 8
+theme_override_constants/vertical_separation = 6
+columns = 2
+
+[node name="DensTypeLabel" type="Label" parent="ScrollContainer/VBox/DensityGrid"]
+layout_mode = 2
+text = "Density Layer:"
+
+[node name="DensityTypeSelect" type="OptionButton" parent="ScrollContainer/VBox/DensityGrid"]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Grass / Layer 1"
+popup/item_0/id = 0
+popup/item_1/text = "Dirt (Tree) / Layer 2"
+popup/item_1/id = 1
+popup/item_2/text = "Rock / Layer 3"
+popup/item_2/id = 2
+popup/item_3/text = "Sand / Layer 4"
+popup/item_3/id = 3
+
+[node name="PaintModeLabel" type="Label" parent="ScrollContainer/VBox/DensityGrid"]
+layout_mode = 2
+text = "Action:"
+
+[node name="PaintModeCheck" type="CheckButton" parent="ScrollContainer/VBox/DensityGrid"]
+layout_mode = 2
+button_pressed = true
+text = "Paint (ON) / Erase (OFF)"
+
+[node name="BtnAutoPaint" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Auto-Paint Slopes & Cliffs"
+
+[node name="ErosionHeader" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "5. Weathering & Erosion"
+
+[node name="ErosionHBox" type="HBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BtnThermalErode" type="Button" parent="ScrollContainer/VBox/ErosionHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thermal Erosion"
+
+[node name="BtnHydraulicErode" type="Button" parent="ScrollContainer/VBox/ErosionHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hydraulic Erosion"
+
+[node name="BakeHeader" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "6. Bake & Export"
+
+[node name="BtnBake" type="Button" parent="ScrollContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.2, 0.9, 0.2, 1)
+text = "Bake World (res://BakedWorld/)"
+
+[node name="ExportLabel" type="Label" parent="ScrollContainer/VBox"]
+layout_mode = 2
+text = "Export formats:"
+
+[node name="ExportHBox" type="HBoxContainer" parent="ScrollContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BtnGLB" type="Button" parent="ScrollContainer/VBox/ExportHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "GLB"
+
+[node name="BtnOBJ" type="Button" parent="ScrollContainer/VBox/ExportHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "OBJ"
+
+[node name="BtnTRES" type="Button" parent="ScrollContainer/VBox/ExportHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mesh (.tres)"

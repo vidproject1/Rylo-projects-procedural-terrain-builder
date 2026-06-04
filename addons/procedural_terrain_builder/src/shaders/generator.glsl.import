@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://damcm72uhiydw"
+path="res://.godot/imported/generator.glsl-f1f4cefd0db199382e92898ecdfb0e68.res"
+
+[deps]
+
+source_file="res://addons/procedural_terrain_builder/src/shaders/generator.glsl"
+dest_files=["res://.godot/imported/generator.glsl-f1f4cefd0db199382e92898ecdfb0e68.res"]
+
+[params]
+
