@@ -52,30 +52,30 @@ uniform bool use_splatmap = false;
 uniform sampler2D splat_map : source_color, filter_linear, hint_default_black;
 
 group_uniforms Height_Blending;
-uniform float height_blend_contrast : hint_range(0.01, 1.0) = 0.1;
+uniform float height_blend_contrast : hint_range(0.01, 1.0) = 1.0;
 
 group_uniforms Noise_Blending;
 uniform float transition_noise_frequency : hint_range(0.01, 4.0) = 0.4;
 uniform float transition_noise_amplitude : hint_range(0.0, 1.5) = 0.25;
-uniform float splatmap_warp_strength : hint_range(0.0, 0.5) = 0.06;
+uniform float splatmap_warp_strength : hint_range(0.0, 0.5) = 0.075;
 
 group_uniforms Micro_Normal;
 uniform bool use_micro_normal = false;
 uniform sampler2D micro_normal : hint_normal, filter_linear_mipmap_anisotropic;
 uniform float micro_normal_scale = 50.0;
-uniform float micro_normal_strength : hint_range(0.0, 1.0) = 0.3;
-uniform float micro_normal_distance : hint_range(5.0, 100.0) = 30.0;
+uniform float micro_normal_strength : hint_range(0.0, 1.0) = 1.0;
+uniform float micro_normal_distance : hint_range(5.0, 100.0) = 100.0;
 
 group_uniforms Grass_Patchiness;
 uniform bool enable_grass_patchiness = true;
-uniform float grass_patch_frequency : hint_range(0.01, 2.0) = 0.15;
-uniform float grass_patch_threshold : hint_range(0.0, 1.0) = 0.5;
-uniform float grass_patch_blend : hint_range(0.01, 1.0) = 0.25;
+uniform float grass_patch_frequency : hint_range(0.01, 2.0) = 1.7;
+uniform float grass_patch_threshold : hint_range(0.0, 1.0) = 0.0;
+uniform float grass_patch_blend : hint_range(0.01, 1.0) = 0.01;
 uniform float grass_macro_variation_frequency : hint_range(0.001, 0.5) = 0.015;
 uniform vec4 grass_dry_color : source_color = vec4(0.45, 0.48, 0.22, 1.0);
 
 group_uniforms Cliff_Enhancements;
-uniform float triplanar_sharpness : hint_range(1.0, 16.0) = 8.0;
+uniform float triplanar_sharpness : hint_range(1.0, 16.0) = 1.0;
 uniform bool enable_strata = true;
 uniform float strata_frequency : hint_range(0.05, 5.0) = 0.8;
 
